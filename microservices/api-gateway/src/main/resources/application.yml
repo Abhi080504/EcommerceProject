@@ -1,0 +1,73 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products,/api/products/**,/api/sellers/products,/api/sellers/products/**,/api/deals/**,/api/home-categories/**,/api/home-category/**,/home/categories/**,/api/categories,/api/categories/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**,/api/seller/**,/api/sellers/**
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/api/products/*/reviews,/api/reviews/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users,/api/users/**,/api/super-admin/**
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/cart,/api/cart/**
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders,/api/orders/**,/api/seller/orders/**,/api/payment/**
+        - id: coupon-service
+          uri: lb://coupon-service
+          predicates:
+            - Path=/api/coupons,/api/coupons/**
+        - id: monolith
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  file:
+    name: api-gateway.log
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    com.ecommerceproject.gateway: DEBUG
+
+jwt:
+  secret: ecommerceSecretKey2026SuperSecureJwtTokenForAuthenticationAndAuthorization

@@ -1,0 +1,43 @@
+package com.ecommerceproject.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.Properties;
+
+@Configuration
+public class MailConfig {
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.host}")
+    private String mailHost;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.port}")
+    private Integer mailPort;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.username}")
+    private String mailUsername;
+
+    @org.springframework.beans.factory.annotation.Value("${spring.mail.password}")
+    private String mailPassword;
+
+    @Bean
+    public JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        mailSender.setHost(mailHost);
+        mailSender.setPort(mailPort);
+        mailSender.setUsername(mailUsername);
+        // Common issue: App Passwords often copied with spaces. Strip them.
+        mailSender.setPassword(mailPassword != null ? mailPassword.replace(" ", "") : null);
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
+    }
+}

@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+frontend/node_modules/
+
+# Frontend build
+frontend/build/
+frontend/.env.local
+
+# Backend build
+target/
+**/target/
+.mvn/
+
+# Common
+.DS_Store
+*.log
+*.txt
+*.sql
+*.bat
+!start_microservices.bat
+!start_redis.bat
+!stop_microservices.bat
+*.zip

@@ -1,0 +1,43 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/myecommerce?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Abhaymurali2004
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6380
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: abhay.thazhakode@gmail.com
+    password: peiz gaej zslo wcxq
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: ecommerceSecretKey2026SuperSecureJwtTokenForAuthenticationAndAuthorization
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      
+

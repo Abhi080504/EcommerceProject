@@ -1,0 +1,4 @@
+.thin-line-through {
+text-decoration: line-through;
+text-decoration-thickness: 1px; /* Adjust the thickness as needed */
+}

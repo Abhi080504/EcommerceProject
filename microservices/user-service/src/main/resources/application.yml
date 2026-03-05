@@ -1,0 +1,35 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/myecommerce?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: Abhaymurali2004
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  file:
+    name: user-service.log
+  level:
+    org.springframework.web: DEBUG
+    com.ecommerceproject.user: DEBUG
+
+jwt:
+  secret: ecommerceSecretKey2026SuperSecureJwtTokenForAuthenticationAndAuthorization

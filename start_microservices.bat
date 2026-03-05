@@ -1,0 +1,36 @@
+@echo off
+echo Starting Microservices Architecture...
+
+echo Starting Eureka Server...
+start "Eureka Server" cmd /k "cd microservices\eureka-server && mvn spring-boot:run"
+timeout /t 10
+
+echo Starting API Gateway...
+start "API Gateway" cmd /k "cd microservices\api-gateway && mvn spring-boot:run"
+timeout /t 5
+
+echo Starting Auth Service...
+start "Auth Service" cmd /k "cd microservices\auth-service && mvn spring-boot:run"
+timeout /t 5
+
+echo Starting User Service...
+start "User Service" cmd /k "cd microservices\user-service && mvn spring-boot:run"
+
+echo Starting Product Service...
+start "Product Service" cmd /k "cd microservices\product-service && mvn spring-boot:run"
+
+echo Starting Order Service...
+start "Order Service" cmd /k "cd microservices\order-service && mvn spring-boot:run"
+
+echo Starting Cart Service...
+start "Cart Service" cmd /k "cd microservices\cart-service && mvn spring-boot:run"
+
+echo Starting Coupon Service...
+start "Coupon Service" cmd /k "cd microservices\coupon-service && mvn spring-boot:run"
+
+echo Starting Review Service...
+start "Review Service" cmd /k "cd microservices\review-service && mvn spring-boot:run"
+
+echo All services are starting...
+echo Please wait for Eureka to register all instances before testing.
+pause

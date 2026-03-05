@@ -1,0 +1,32 @@
+package com.ecommerceproject.auth.service;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class EmailService {
+
+    private final JavaMailSender javaMailSender;
+
+    // @Async // Async requires @EnableAsync configuration, omitting for simplicity
+    // or add later
+    public void sendVerificationOtpEmail(String userEmail, String otp, String subject, String text) {
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
+
+            mimeMessageHelper.setSubject(subject);
+            mimeMessageHelper.setText(text);
+            mimeMessageHelper.setTo(userEmail);
+            javaMailSender.send(mimeMessage);
+        } catch (MailException | MessagingException e) {
+            System.err.println("Failed to send email: " + e.getMessage());
+        }
+    }
+}

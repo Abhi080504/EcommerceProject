@@ -1,0 +1,37 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/myecommerce?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:Abhaymurali2004}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret: ecommerceSecretKey2026SuperSecureJwtTokenForAuthenticationAndAuthorization
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+razorpay:
+  api:
+    key: rzp_test_placeholder
+    secret: rzp_secret_placeholder
+
+stripe:
+  api:
+    key: stripe_test_placeholder
